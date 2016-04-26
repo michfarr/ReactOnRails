@@ -1,4 +1,5 @@
 import React from 'react';
+import jQuery from 'jquery';
 
 class Courses extends React.Component {
     constructor(props) {
@@ -11,11 +12,13 @@ class Courses extends React.Component {
         };
     }
 
-    compononentDidMount() {
-        this.setState({
-            courses: []
-        });
-    }
+    componentDidMount() {
+        jQuery.get("http://localhost:3000/courses.json", (function(data){
+          this.setState({
+            courses: data.courses,
+          });
+        }).bind(this));
+      }
 
     render() {
         let courses = this.state.courses.map(function(course) {
